@@ -17,15 +17,15 @@ CREATE TABLE pracownicy (
   PRIMARY KEY (id_pracownika),
   UNIQUE INDEX id_pracownika_UNIQUE (id_pracownika ASC));
   
-  
+
   CREATE TABLE sklepy (
 	id_sklepy VARCHAR(10) NOT NULL,
 	id_region VARCHAR(45) NULL,
 	sklep_miasto VARCHAR(50) NOT NULL,
 	sklep_adres VARCHAR(100) NOT NULL,
 	sklep_telefon INT NULL,
-	godziny_o DATE NULL,
-	godziny_z DATE NULL,
+	id_godziny INT NULL,
+
   PRIMARY KEY (id_sklepy),
   UNIQUE INDEX `id_sklepy_UNIQUE` (id_sklepy ASC));
   
@@ -87,6 +87,15 @@ CREATE TABLE pracownicy (
     region_imie VARCHAR(50),
 	region_nazw VARCHAR(50),
     PRIMARY KEY (id_region));
+    
+    drop table role;
+    
+  CREATE TABLE role (
+    id_roli INT AUTO_INCREMENT not null,
+	role_nazwa VARCHAR(50) not null,
+    role_uprawnienia VARCHAR(50),
+    PRIMARY KEY (id_roli));
+
 
   
 # wczyranie danych do bazy z plików CSV
@@ -108,6 +117,8 @@ LOAD DATA LOCAL INFILE 'C:/Users/Dell/Desktop/Kurs/Projekty/Projekt 1/csv/region
 # Wczytanie tabli pracownicy
 LOAD DATA LOCAL INFILE 'C:/Users/Dell/Desktop/Kurs/Projekty/Projekt 1/csv/PRACOWNICY.csv' INTO TABLE PRACOWNICY;
 
+# Wczytanie tabli role
+LOAD DATA LOCAL INFILE 'C:/Users/Dell/Desktop/Kurs/Projekty/Projekt 1/csv/role.csv' INTO TABLE role;
 
 # Wczytanie towarów z podzialem na granże
 
@@ -144,4 +155,9 @@ LOAD DATA LOCAL INFILE 'C:/Users/Dell/Desktop/Kurs/Projekty/Projekt 1/csv/zasoby
 LOAD DATA LOCAL INFILE 'C:/Users/Dell/Desktop/Kurs/Projekty/Projekt 1/csv/promocje.csv' INTO TABLE promocje ;
 
 
+# Tworzenie widoku podstawowych dancyh dla sklpu S315
 
+create view zasoby_S315 as select id_sklep,kod_index,towar_nazwa,zasoby_ilosc,zasoby_cena from zasoby natural join towary where id_sklep='s315';
+
+# Tworzenie widoku zestawiającego regionalnych ze sklepami
+create view reg_sklep as select id_region,region_imie,region_nazw,id_sklepy,sklep_miasto from regiony natural join sklepy;
