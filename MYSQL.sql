@@ -161,3 +161,5 @@ create view zasoby_S315 as select id_sklep,kod_index,towar_nazwa,zasoby_ilosc,za
 
 # Tworzenie widoku zestawiającego regionalnych ze sklepami
 create view reg_sklep as select id_region,region_imie,region_nazw,id_sklepy,sklep_miasto from regiony natural join sklepy;
+
+select * from pracownicy;
