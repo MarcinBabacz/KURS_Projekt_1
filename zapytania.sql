@@ -12,7 +12,7 @@ select id_pracownika,pr_imie,pr_nazwisko,role_nazwa,id_sklep from pracownicy nat
 # zapytanie zwracające podstawowe dane dla podanego indeksy w podanym sklpie
 
 SELECT 
-    id_sklep, kod_index, towar_nazwa, zasoby_ilosc, zasoby_cena
+    id_sklep,branza,grupa, kod_index, towar_nazwa, zasoby_ilosc, zasoby_cena
 FROM
     zasoby
         NATURAL JOIN
@@ -126,4 +126,6 @@ WHERE
             bazaean
         WHERE
             kod_ean = '2880008606293');
+
+
 
